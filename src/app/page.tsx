@@ -7,6 +7,7 @@ import AnimatedTimeline from "./AnimatedTimeLine";
 const LandingPage = () => {
   return (
     // <div className="bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
+
     <div className="min-h-screen w-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex flex-col items-center justify-center p-8">
       <header className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-800 mb-4">

@@ -1,6 +1,6 @@
 "use client";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
-import { Cpu, Icon } from "lucide-react";
+import { Cpu, Icon, CircleDot } from "lucide-react";
 import AnimatedSpecification from "./AnimatedSpecification";
 import MacBookWindow from "./MacWindow";
 
@@ -96,20 +96,24 @@ const TimelineEvent = ({
 }) => (
   <div
     className={`
-      flex items-center mb-10 
+      flex items-center 
     
     `}
   >
-    <div
-      className={`${isCentered ? "border-yellow-300 border-2" : ""}
-      bg-black rounded-full p-4 absolute -left-1 overflow-visible`}
-    ></div>
-    <div
-      className={`flex flex-row items-center 
-        
-       
-      `}
-    >
+    <div className="flex flex-col items-center border-l  p-4">
+      {/* <div className="bg-black w-1 flex-1"> </div> */}
+      <div
+        className={`
+     rounded-full  absolute left-0 -translate-x-1/2 overflow-visible transition-transform duration-500
+    ${
+      isCentered
+        ? " scale-110 shadow-md filter drop-shadow-[0_0_10px_rgba(74,222,128,0.8)]"
+        : "scale-100"
+    }
+  `}
+      >
+        <CircleDot />
+      </div>
       {isVisible && (
         <StepCard
           title={title}
@@ -179,19 +183,16 @@ const AnimatedTimeline = () => {
 
   return (
     <div className="container mx-auto p-24">
-      {/* <h2 className="text-2xl font-bold mb-4"></h2> */}
       <div className="relative">
-        <div>
-          {timelineEvents.map((event, index) => (
-            <div key={index} ref={(el) => (observerRefs.current[index] = el)}>
-              <TimelineEvent
-                {...event}
-                isVisible={visibleEvents[index]}
-                isCentered={index === centeredEventIndex}
-              />
-            </div>
-          ))}
-        </div>
+        {timelineEvents.map((event, index) => (
+          <div ref={(el) => (observerRefs.current[index] = el)} key={index}>
+            <TimelineEvent
+              {...event}
+              isVisible={visibleEvents[index]}
+              isCentered={index === centeredEventIndex}
+            />
+          </div>
+        ))}
       </div>
     </div>
   );
