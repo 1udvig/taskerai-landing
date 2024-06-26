@@ -1,20 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 
-const AnimatedInput = ({ value, onChange, onRemove }) => {
+const AnimatedInput = ({
+  value,
+  onChange,
+  onRemove,
+  shouldAnimate,
+  onAnimationComplete,
+}) => {
   const [displayText, setDisplayText] = useState("");
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
 
   useEffect(() => {
-    if (currentCharIndex < value.length) {
+    if (shouldAnimate && currentCharIndex < value.length) {
       const timer = setTimeout(() => {
         setDisplayText((prev) => prev + value[currentCharIndex]);
         setCurrentCharIndex((prev) => prev + 1);
-      }, Math.random() * 50 + 50);
+      }, Math.random() * 25 + 10);
 
       return () => clearTimeout(timer);
+    } else if (shouldAnimate && currentCharIndex === value.length) {
+      onAnimationComplete(); // Notify parent component that animation is complete
     }
-  }, [currentCharIndex, value]);
+  }, [currentCharIndex, value, shouldAnimate, onAnimationComplete]);
 
   return (
     <li className="flex items-center">
@@ -31,9 +39,23 @@ const AnimatedInput = ({ value, onChange, onRemove }) => {
 
 const AnimatedSpecification = () => {
   const [specification, setSpecification] = useState({
-    current: ["Item 1", "Item 2", "Item 3"],
-    proposed: ["Item 1", "Item 2", "Item 3"],
+    current: [
+      { text: "Game reset functionality after the player loses", index: 0 },
+      { text: "Display of score", index: 1 },
+      { text: "Collision detection for walls and snake body", index: 2 },
+    ],
+    proposed: [
+      { text: "Pause the game when the 'P' key is pressed", index: 3 },
+      { text: "Resume the game when the 'P' key is pressed again", index: 4 },
+      { text: "Display a pause message when the game is paused", index: 5 },
+    ],
   });
+  const [animatingIndex, setAnimatingIndex] = useState(0); // New state to track animating item index
+
+  const handleAnimationComplete = () => {
+    setAnimatingIndex((prevIndex) => prevIndex + 1); // Move to the next item
+  };
+
   return (
     <>
       {Object.entries(specification).map(([key, values]) => (
@@ -46,7 +68,7 @@ const AnimatedSpecification = () => {
               values.map((value, index) => (
                 <AnimatedInput
                   key={index}
-                  value={value}
+                  value={value.text}
                   onChange={(event) => handleBlur(key, index, event)}
                   onRemove={() => {
                     setSpecification((prevSpecification) => {
@@ -58,6 +80,8 @@ const AnimatedSpecification = () => {
                       };
                     });
                   }}
+                  shouldAnimate={animatingIndex === value.index} // Only animate if it's the current item's turn
+                  onAnimationComplete={handleAnimationComplete}
                 />
               ))}
           </ul>

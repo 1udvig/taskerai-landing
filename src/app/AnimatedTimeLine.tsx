@@ -2,6 +2,7 @@
 import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { Cpu, Icon } from "lucide-react";
 import AnimatedSpecification from "./AnimatedSpecification";
+import MacBookWindow from "./MacWindow";
 
 const TrelloIcon = ({ width, height }: { width: string; height: string }) => (
   <svg
@@ -73,7 +74,12 @@ const timelineEvents = [
     title: "Specification",
     description:
       "LLM analyzes the issue and generates a detailed specification for the functionality based on the file context and the principles of your codebase and tech stack.",
-    animation: <AnimatedSpecification />,
+    animation: (
+      <MacBookWindow>
+        {" "}
+        <AnimatedSpecification />
+      </MacBookWindow>
+    ),
   },
   { title: "Event 3", description: "Description for Event 3" },
   { title: "Event 4", description: "Description for Event 4" },
@@ -104,14 +110,16 @@ const TimelineEvent = ({
        
       `}
     >
-      <StepCard
-        title={title}
-        description={description}
-        icon={icon}
-        animation={animation}
-        isVisible={isVisible}
-        isCentered={isCentered}
-      />
+      {isVisible && (
+        <StepCard
+          title={title}
+          description={description}
+          icon={icon}
+          animation={animation}
+          isVisible={isVisible}
+          isCentered={isCentered}
+        />
+      )}
     </div>
   </div>
 );
@@ -170,10 +178,10 @@ const AnimatedTimeline = () => {
   }, []);
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-24">
       {/* <h2 className="text-2xl font-bold mb-4"></h2> */}
       <div className="relative">
-        <div className="border-l-4">
+        <div>
           {timelineEvents.map((event, index) => (
             <div key={index} ref={(el) => (observerRefs.current[index] = el)}>
               <TimelineEvent

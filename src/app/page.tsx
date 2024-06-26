@@ -7,7 +7,7 @@ import AnimatedTimeline from "./AnimatedTimeLine";
 const LandingPage = () => {
   return (
     // <div className="bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex flex-col items-center justify-center p-8">
+    <div className="min-h-screen w-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex flex-col items-center justify-center p-8">
       <header className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-800 mb-4">
           Tasker
@@ -20,9 +20,9 @@ const LandingPage = () => {
         </p>
       </header>
 
-      <main className="max-w-4xl w-full bg-white rounded-lg shadow-lg p-8 ">
+      <main className=" w-full bg-white rounded-lg shadow-lg p-8 ">
         <section className="mb-12">
-          <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+          <h2 className="text-xl font-semibold text-gray-800 mb-4">
             How It Works
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -52,8 +52,8 @@ const LandingPage = () => {
             Get Started <ArrowRight className="ml-2" />
           </Button>
         </section>
-        <AnimatedTimeline />
       </main>
+      <AnimatedTimeline />
 
       <footer className="mt-12 text-center text-gray-600">
         <p>&copy; 2024 Clienture AB. All rights reserved.</p>
