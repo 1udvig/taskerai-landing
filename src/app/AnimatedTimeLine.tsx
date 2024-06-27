@@ -3,6 +3,7 @@ import React, { ReactElement, useEffect, useRef, useState } from "react";
 import { Cpu, Icon, CircleDot } from "lucide-react";
 import AnimatedSpecification from "./AnimatedSpecification";
 import MacBookWindow from "./MacWindow";
+import FileSearchAnimation from "./AnimatedIssue";
 
 const TrelloIcon = ({ width, height }: { width: string; height: string }) => (
   <svg
@@ -31,7 +32,7 @@ const StepCard = ({
   description: string;
   isVisible: boolean;
   isCentered: boolean;
-  animation?: ReactElement;
+  animation?: (isCentered: boolean) => ReactElement;
 }) => (
   // <div className="bg-gray-50 border border-white rounded-lg p-6 flex flex-col items-center text-center hover:border-slate-200">
   <div
@@ -59,7 +60,10 @@ const StepCard = ({
       {icon}
     </div>
     <p className="text-gray-600">{description}</p>
-    {animation && animation}
+    {/* <MacBookWindow>
+      <AnimatedSpecification shouldAnimate={isCentered} />
+    </MacBookWindow> */}
+    {animation && animation({ shouldAnimate: isCentered })}
   </div>
 );
 
@@ -69,15 +73,19 @@ const timelineEvents = [
     description:
       "Pick a user story from your project management system or just formulate a new functionality",
     icon: <TrelloIcon width="20" height="20" />,
+    animation: (props) => (
+      <MacBookWindow>
+        <FileSearchAnimation {...props} />
+      </MacBookWindow>
+    ),
   },
   {
     title: "Specification",
     description:
       "LLM analyzes the issue and generates a detailed specification for the functionality based on the file context and the principles of your codebase and tech stack.",
-    animation: (
+    animation: (props) => (
       <MacBookWindow>
-        {" "}
-        <AnimatedSpecification />
+        <AnimatedSpecification {...props} />
       </MacBookWindow>
     ),
   },
@@ -104,15 +112,11 @@ const TimelineEvent = ({
       {/* <div className="bg-black w-1 flex-1"> </div> */}
       <div
         className={`
-     rounded-full  absolute left-0 -translate-x-1/2 overflow-visible transition-transform duration-500
-    ${
-      isCentered
-        ? " scale-110 shadow-md filter drop-shadow-[0_0_10px_rgba(74,222,128,0.8)]"
-        : "scale-100"
-    }
+     rounded-full  absolute left-0 -translate-x-1/2 overflow-visible transition-transform duration-500 
+    ${isCentered ? " scale-110  bg-green-400" : "scale-100"}
   `}
       >
-        <CircleDot />
+        <CircleDot color={isCentered ? "white" : "gray"} />
       </div>
       {isVisible && (
         <StepCard

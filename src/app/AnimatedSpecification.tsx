@@ -37,7 +37,11 @@ const AnimatedInput = ({
   );
 };
 
-const AnimatedSpecification = () => {
+const AnimatedSpecification = ({
+  shouldAnimate,
+}: {
+  shouldAnimate: boolean;
+}) => {
   const [specification, setSpecification] = useState({
     current: [
       { text: "Game reset functionality after the player loses", index: 0 },
@@ -80,7 +84,9 @@ const AnimatedSpecification = () => {
                       };
                     });
                   }}
-                  shouldAnimate={animatingIndex === value.index} // Only animate if it's the current item's turn
+                  shouldAnimate={
+                    animatingIndex === value.index && shouldAnimate
+                  } // Only animate if it's the current item's turn
                   onAnimationComplete={handleAnimationComplete}
                 />
               ))}
