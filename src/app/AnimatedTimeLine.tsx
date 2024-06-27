@@ -14,6 +14,7 @@ import MacBookWindow from "./MacWindow";
 import FileSearchAnimation from "./AnimatedIssue";
 
 import MonacoEditor from "./AnimatedCodeGeneration";
+import FileExplorer from "./AnimatedFileSearch";
 
 const TrelloIcon = ({ width, height }: { width: string; height: string }) => (
   <svg
@@ -67,7 +68,9 @@ const StepCard = ({
     {/* <MacBookWindow>
       <AnimatedSpecification shouldAnimate={isCentered} />
     </MacBookWindow> */}
-    {animation && animation({ shouldAnimate: isCentered })}
+    <div className="py-10">
+      {animation && animation({ shouldAnimate: isCentered })}
+    </div>
   </div>
 );
 
@@ -79,7 +82,8 @@ const timelineEvents = [
     icon: <TrelloIcon width="20" height="20" />,
     animation: (props) => (
       <MacBookWindow>
-        <FileSearchAnimation {...props} />
+        {/* <FileSearchAnimation {...props} /> */}
+        <FileExplorer {...props} />
       </MacBookWindow>
     ),
     progressIcon: (props) => <CircleDot {...props} />,

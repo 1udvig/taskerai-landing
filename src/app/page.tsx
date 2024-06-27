@@ -17,11 +17,11 @@ const LandingPage = () => {
           </span>
         </h1>
         <p className="text-xl text-gray-600">
-          Revolutionize Your Coding Process with AI
+          Revolutionize Your Coding Process with LLM technology.
         </p>
       </header>
 
-      <main className=" w-full bg-white rounded-lg shadow-lg p-8 ">
+      <main className=" max-w-screen-xl w-full bg-white rounded-lg shadow-lg p-8 ">
         <section className="mb-12">
           <h2 className="text-xl font-semibold text-gray-800 mb-4">
             How It Works
