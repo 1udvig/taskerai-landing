@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import Editor, { DiffEditor } from "@monaco-editor/react";
 
 const originalcode = `
@@ -158,15 +158,39 @@ if __name__ == "__main__":
     gameLoop()
 `;
 
-function MonacoEditor() {
+function MonacoEditor({ shouldAnimate }: { shouldAnimate: boolean }) {
   const [modifiedCode, setModifiedCode] = useState(originalcode);
+
+  const diffEditorRef = useRef(null);
+
+  function handleEditorDidMount(editor, monaco) {
+    diffEditorRef.current = editor;
+    console.log(
+      diffEditorRef.current.getModifiedEditor().getValue().split("\n")
+    );
+  }
+
+  //   const diffLines = [
+  //     { line: 3, text: "    game_paused = False\n" },
+  //     { line: 29, text: "                if event.key == pygame.K_p:\n" },
+  //     { line: 30, text: "                    game_paused = not game_paused\n" },
+  //     {
+  //       line: 42,
+  //       text: "        if game_paused:\n            message(\"Game Paused. Press 'P' to resume.\", yellow)\n            pygame.display.update()\n            continue\n",
+  //     },
+  //   ];
+
   useEffect(() => {
+    if (!shouldAnimate) {
+      return;
+    }
+    console.log("initializing timer");
     const timer = setTimeout(() => {
       setModifiedCode(modifiedcode);
-    }, 1000);
+    }, 2000); // Wait for 2 seconds
 
-    return () => clearTimeout(timer);
-  }, []);
+    return () => clearTimeout(timer); // Cleanup on unmount
+  }, [shouldAnimate]);
 
   return (
     <div>
@@ -180,6 +204,7 @@ function MonacoEditor() {
         }}
         original={originalcode}
         modified={modifiedCode}
+        onMount={handleEditorDidMount}
       />
     </div>
   );

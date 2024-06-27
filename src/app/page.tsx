@@ -9,7 +9,7 @@ const LandingPage = () => {
     // <div className="bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
 
     <div className="min-h-screen w-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex flex-col items-center justify-center p-8">
-      <header className="text-center mb-12">
+      <header className="text-center mb-12 pt-10">
         <h1 className="text-4xl font-bold text-gray-800 mb-4">
           Tasker
           <span className="bg-gray-700 text-yellow-300 py-1 px-2 ml-1 rounded-md ">
@@ -17,15 +17,13 @@ const LandingPage = () => {
           </span>
         </h1>
         <p className="text-xl text-gray-600">
-          Revolutionize Your Coding Process with LLM technology.
+          Revolutionize Your Software Development with LLM technology.
         </p>
       </header>
 
-      <main className=" max-w-screen-xl w-full bg-white rounded-lg shadow-lg p-8 ">
+      {/* <main className=" max-w-screen-xl w-full bg-white rounded-lg shadow-lg p-8 ">
         <section className="mb-12">
-          <h2 className="text-xl font-semibold text-gray-800 mb-4">
-            How It Works
-          </h2>
+        
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <FeatureCard
               icon={<FileCode className="w-12 h-12 text-blue-500" />}
@@ -53,9 +51,8 @@ const LandingPage = () => {
             Get Started <ArrowRight className="ml-2" />
           </Button>
         </section>
-      </main>
+      </main> */}
       <AnimatedTimeline />
-
       <footer className="mt-12 text-center text-gray-600">
         <p>&copy; 2024 Clienture AB. All rights reserved.</p>
       </footer>

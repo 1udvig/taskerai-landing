@@ -8,6 +8,7 @@ import {
   Code,
   BadgeCheck,
   GitPullRequest,
+  ArrowDown,
 } from "lucide-react";
 import AnimatedSpecification from "./AnimatedSpecification";
 import MacBookWindow from "./MacWindow";
@@ -15,6 +16,7 @@ import FileSearchAnimation from "./AnimatedIssue";
 
 import MonacoEditor from "./AnimatedCodeGeneration";
 import FileExplorer from "./AnimatedFileSearch";
+import TestCompletionAnimation from "./AnimatedTests";
 
 const TrelloIcon = ({ width, height }: { width: string; height: string }) => (
   <svg
@@ -106,20 +108,27 @@ const timelineEvents = [
     animation: (props) => (
       <MacBookWindow>
         {/* <div>Minacoplaceholder</div> */}
-        <MonacoEditor />
+        <MonacoEditor {...props} />
       </MacBookWindow>
     ),
 
     progressIcon: (props) => <Code {...props} />,
   },
   {
-    title: "Event 4",
-    description: "Description for Event 4",
+    title: "Automated testing and test creation",
+    description:
+      "If the code implmentation passed the tests, LLM will continue to also write tests for the the new functionality",
     progressIcon: (props) => <BadgeCheck {...props} />,
+    animation: (props) => (
+      <MacBookWindow>
+        <TestCompletionAnimation {...props} />
+      </MacBookWindow>
+    ),
   },
   {
-    title: "Event 5",
-    description: "Description for Event 5",
+    title: "Commiting and syncing your changes",
+    description:
+      "When the implementation is done, LLM will commit the changes and create a pull request for you. Contributing to the project is easier than ever",
     progressIcon: (props) => <GitPullRequest {...props} />,
   },
 ];
@@ -150,8 +159,12 @@ const TimelineEvent = ({
         {/* <CircleDot color={isCentered ? "white" : "gray"} /> */}
         <div className="p-2">
           {progressIcon({ color: isCentered ? "white" : "gray" })}
+          <div className=" absolute mt-12 animate-bouncepp">
+            <ArrowDown />
+          </div>
         </div>
       </div>
+
       {isVisible && (
         <StepCard
           title={title}
@@ -220,7 +233,7 @@ const AnimatedTimeline = () => {
   }, []);
 
   return (
-    <div className="container mx-auto p-24">
+    <div className="container mx-auto px-24">
       <div className="relative">
         {timelineEvents.map((event, index) => (
           <div ref={(el) => (observerRefs.current[index] = el)} key={index}>
