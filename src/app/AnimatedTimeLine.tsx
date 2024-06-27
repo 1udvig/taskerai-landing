@@ -4,6 +4,7 @@ import { Cpu, Icon, CircleDot } from "lucide-react";
 import AnimatedSpecification from "./AnimatedSpecification";
 import MacBookWindow from "./MacWindow";
 import FileSearchAnimation from "./AnimatedIssue";
+import MonacoDiffEditor from "./AnimatedCodeGeneration";
 
 const TrelloIcon = ({ width, height }: { width: string; height: string }) => (
   <svg
@@ -89,7 +90,16 @@ const timelineEvents = [
       </MacBookWindow>
     ),
   },
-  { title: "Event 3", description: "Description for Event 3" },
+  {
+    title: "Event 3",
+    description: "Description for Event 3",
+    animation: (props) => (
+      <MacBookWindow>
+        {/* <div>Minacoplaceholder</div> */}
+        <MonacoDiffEditor></MonacoDiffEditor>
+      </MacBookWindow>
+    ),
+  },
   { title: "Event 4", description: "Description for Event 4" },
   { title: "Event 5", description: "Description for Event 5" },
 ];
