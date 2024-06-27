@@ -27,7 +27,7 @@ const AnimatedInput = ({
   return (
     <li className="flex items-center">
       <input
-        className="text-md font-light outline-none w-full mr-2 hover:bg-gray-300 p-2 bg-gray-200 my-2 rounded-md"
+        className="text-sm font-light outline-none w-full mr-2 hover:bg-gray-300 p-2 bg-gray-200 my-2 rounded-md"
         value={displayText}
         onChange={onChange}
         readOnly={currentCharIndex < value.length}

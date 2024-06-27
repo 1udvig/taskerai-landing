@@ -1,10 +1,19 @@
 "use client";
 import React, { ReactElement, useEffect, useRef, useState } from "react";
-import { Cpu, Icon, CircleDot } from "lucide-react";
+import {
+  Cpu,
+  Icon,
+  CircleDot,
+  ListPlus,
+  Code,
+  BadgeCheck,
+  GitPullRequest,
+} from "lucide-react";
 import AnimatedSpecification from "./AnimatedSpecification";
 import MacBookWindow from "./MacWindow";
 import FileSearchAnimation from "./AnimatedIssue";
-import MonacoDiffEditor from "./AnimatedCodeGeneration";
+
+import MonacoEditor from "./AnimatedCodeGeneration";
 
 const TrelloIcon = ({ width, height }: { width: string; height: string }) => (
   <svg
@@ -48,13 +57,7 @@ const StepCard = ({
       transition-all duration-500 ease-out  ${
         isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
       }
-      ${
-        isCentered
-          ? "ml-8 bg-yellow-200"
-          : isVisible
-          ? "bg-green-200"
-          : "bg-gray-200"
-      }`}
+      ${isCentered ? "ml-8 bg-green-200" : "bg-gray-200"}`}
   >
     <div className="w-full justify-between flex">
       <h3 className="text-xl font-semibold text-gray-800  mb-2">{title}</h3>
@@ -79,6 +82,7 @@ const timelineEvents = [
         <FileSearchAnimation {...props} />
       </MacBookWindow>
     ),
+    progressIcon: (props) => <CircleDot {...props} />,
   },
   {
     title: "Specification",
@@ -89,19 +93,31 @@ const timelineEvents = [
         <AnimatedSpecification {...props} />
       </MacBookWindow>
     ),
+    progressIcon: (props) => <ListPlus {...props} />,
   },
   {
-    title: "Event 3",
-    description: "Description for Event 3",
+    title: "Coding",
+    description:
+      "The LLM writes the code for the functionality and shows you the diff. Here you can review the code and make changes.",
     animation: (props) => (
       <MacBookWindow>
         {/* <div>Minacoplaceholder</div> */}
-        <MonacoDiffEditor></MonacoDiffEditor>
+        <MonacoEditor />
       </MacBookWindow>
     ),
+
+    progressIcon: (props) => <Code {...props} />,
   },
-  { title: "Event 4", description: "Description for Event 4" },
-  { title: "Event 5", description: "Description for Event 5" },
+  {
+    title: "Event 4",
+    description: "Description for Event 4",
+    progressIcon: (props) => <BadgeCheck {...props} />,
+  },
+  {
+    title: "Event 5",
+    description: "Description for Event 5",
+    progressIcon: (props) => <GitPullRequest {...props} />,
+  },
 ];
 
 const TimelineEvent = ({
@@ -111,6 +127,7 @@ const TimelineEvent = ({
   isCentered,
   icon,
   animation,
+  progressIcon,
 }) => (
   <div
     className={`
@@ -126,7 +143,10 @@ const TimelineEvent = ({
     ${isCentered ? " scale-110  bg-green-400" : "scale-100"}
   `}
       >
-        <CircleDot color={isCentered ? "white" : "gray"} />
+        {/* <CircleDot color={isCentered ? "white" : "gray"} /> */}
+        <div className="p-2">
+          {progressIcon({ color: isCentered ? "white" : "gray" })}
+        </div>
       </div>
       {isVisible && (
         <StepCard
