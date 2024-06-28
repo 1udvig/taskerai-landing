@@ -17,6 +17,7 @@ import FileSearchAnimation from "./AnimatedIssue";
 import MonacoEditor from "./AnimatedCodeGeneration";
 import FileExplorer from "./AnimatedFileSearch";
 import TestCompletionAnimation from "./AnimatedTests";
+import KanbanBoard from "./AnimatedKanban";
 
 const TrelloIcon = ({ width, height }: { width: string; height: string }) => (
   <svg
@@ -85,7 +86,8 @@ const timelineEvents = [
     animation: (props) => (
       <MacBookWindow>
         {/* <FileSearchAnimation {...props} /> */}
-        <FileExplorer {...props} />
+        {/* <FileExplorer {...props} /> */}
+        <KanbanBoard {...props} />
       </MacBookWindow>
     ),
     progressIcon: (props) => <CircleDot {...props} />,
@@ -159,8 +161,8 @@ const TimelineEvent = ({
         {/* <CircleDot color={isCentered ? "white" : "gray"} /> */}
         <div className="p-2">
           {progressIcon({ color: isCentered ? "white" : "gray" })}
-          <div className=" absolute mt-12 animate-bouncepp">
-            <ArrowDown />
+          <div className=" absolute mt-12 animate-bouncepp ">
+            <ArrowDown color="gray" />
           </div>
         </div>
       </div>

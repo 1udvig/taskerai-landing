@@ -27,12 +27,14 @@ const AnimatedInput = ({
   return (
     <li className="flex items-center">
       <input
-        className="text-sm font-light outline-none w-full mr-2 hover:bg-gray-300 p-2 bg-gray-200 my-2 rounded-md"
+        className=" text-xs font-light outline-none w-1/2 mr-2 hover:bg-gray-300 p-2 bg-gray-200 my-2 rounded-md"
         value={displayText}
         onChange={onChange}
         readOnly={currentCharIndex < value.length}
       />
-      <Button onClick={onRemove}>-</Button>
+      <Button onClick={onRemove} className="text-sm px-4 py-1 ">
+        -
+      </Button>
     </li>
   );
 };
@@ -64,7 +66,7 @@ const AnimatedSpecification = ({
     <>
       {Object.entries(specification).map(([key, values]) => (
         <div key={key} className="mb-2">
-          <h2 className="text-md font-medium outline-none pb-2">
+          <h2 className="text-sm  outline-none pb-2">
             {key.charAt(0).toUpperCase() + key.slice(1)}
           </h2>
           <ul>
@@ -95,6 +97,7 @@ const AnimatedSpecification = ({
             <div className="py-2">
               <Button
                 variant="secondary"
+                className="text-sm px-4 py-1 font-medium"
                 onClick={() => {
                   setSpecification((prevSpecification) => {
                     return {

@@ -3,6 +3,8 @@ import React, { ReactElement, ReactSVGElement, useState } from "react";
 import { ArrowRight, Code, Zap, FileCode } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AnimatedTimeline from "./AnimatedTimeLine";
+import { Input } from "@/components/ui/input";
+import EmailSubscriptionForm from "./EmailForm";
 
 const LandingPage = () => {
   return (
@@ -10,15 +12,33 @@ const LandingPage = () => {
 
     <div className="min-h-screen w-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex flex-col items-center justify-center p-8">
       <header className="text-center mb-12 pt-10">
-        <h1 className="text-4xl font-bold text-gray-800 mb-4">
+        {/* <h1 className="text-4xl font-bold text-gray-800 mb-4"> */}
+        <h1 className="text-center text-3xl font-bold leading-tight tracking-tighter md:text-5xl lg:leading-[1.1] text-balance mb-4">
           Tasker
-          <span className="bg-gray-700 text-yellow-300 py-1 px-2 ml-1 rounded-md ">
-            AI
+          {/* <span className="bg-gray-700 text-yellow-300 py-1 px-2 ml-1 rounded-md backdrop-blur-xl"> */}
+          <span className="bg-gray-700 py-1 px-4 ml-2 rounded-md">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-yellow-500">
+              AI
+            </span>
           </span>
         </h1>
-        <p className="text-xl text-gray-600">
+        {/* <p className="text-xl text-gray-600">
           Revolutionize Your Software Development with LLM technology.
-        </p>
+        </p> */}
+        <span
+          className="max-w-[750px] text-center text-lg font-light text-foreground"
+          data-br=":Rrfau6la:"
+          data-brr="1"
+          // style="display: inline-block; vertical-align: top; text-decoration: inherit; max-width: 543px;"
+        >
+          Beautifully designed. Copy and paste into your apps. Open Source.
+        </span>
+
+        {/* <div className="flex gap-4 p-4">
+          <Input placeholder="Email" />
+          <Button>Submit</Button>
+        </div> */}
+        <EmailSubscriptionForm />
       </header>
 
       {/* <main className=" max-w-screen-xl w-full bg-white rounded-lg shadow-lg p-8 ">
