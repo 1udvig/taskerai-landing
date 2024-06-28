@@ -52,7 +52,7 @@ const StepCard = ({
   <div
     className={`
       bg-gray-50
-      border
+      border-2
       rounded-lg 
       p-6
       ml-4
@@ -61,7 +61,7 @@ const StepCard = ({
       transition-all duration-500 ease-out  ${
         isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
       }
-      ${isCentered ? "ml-8 bg-green-200" : "bg-gray-200"}`}
+      ${isCentered ? "ml-8 bg-slate-300 drop-shadow-xl" : "bg-slate-100"}`}
   >
     <div className="w-full justify-between flex">
       <h3 className="text-xl font-semibold text-gray-800  mb-2">{title}</h3>
@@ -145,6 +145,7 @@ const TimelineEvent = ({
   progressIcon,
 }) => (
   <div
+    id="animated-timeline"
     className={`
       flex items-center 
     
@@ -162,6 +163,7 @@ const TimelineEvent = ({
         <div className="p-2">
           {progressIcon({ color: isCentered ? "white" : "gray" })}
           <div className=" absolute mt-12 animate-bouncepp ">
+            {/* <div className=" mt-12 absolute transform  cursor-pointer animate-bounce"> */}
             <ArrowDown color="gray" />
           </div>
         </div>

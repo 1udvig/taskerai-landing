@@ -3,22 +3,30 @@ import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 const EmailSubscriptionForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
+    setSubmitSuccess(false);
     // Simulating an API call
     await new Promise((resolve) => setTimeout(resolve, 1000));
     console.log(data);
     setIsSubmitting(false);
+    setSubmitSuccess(true);
     // Here you would typically send the data to your backend
+    reset(); // This clears the form fields
+    // Clear success message after 3 seconds
+    setTimeout(() => setSubmitSuccess(false), 3000);
   };
 
   return (
@@ -41,6 +49,11 @@ const EmailSubscriptionForm = () => {
       </div>
       {errors.email && (
         <p className="text-red-500 text-sm mt-1 px-4">{errors.email.message}</p>
+      )}
+      {submitSuccess && (
+        <Alert className="mt-4">
+          <AlertDescription>Thank you for subscribing!</AlertDescription>
+        </Alert>
       )}
     </form>
   );

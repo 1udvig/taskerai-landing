@@ -71,11 +71,16 @@ const config = {
           "0%, 100%": { transform: "translateY(-100%)" },
           "50%": { transform: "translateY(0%)" },
         },
+        bounce2: {
+          "0%, 100%": { transform: "translateY(-50%)" },
+          "50%": { transform: "translateY(0%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        bouncepp: "bouncepp 2s infinite", // Adjust the duration and repeat as needed
+        bouncepp: "bouncepp 4s infinite", // Adjust the duration and repeat as needed
+        bounce2: "bounce2 4s infinite", // Adjust the duration and repeat as needed
       },
     },
   },
