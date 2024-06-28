@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+type Specification = {
+  current: { text: string; index: number }[];
+  proposed: { text: string; index: number }[];
+};
 
 const AnimatedInput = ({
   value,
@@ -7,6 +11,12 @@ const AnimatedInput = ({
   onRemove,
   shouldAnimate,
   onAnimationComplete,
+}: {
+  value: string;
+  onChange?: any;
+  onRemove: any;
+  shouldAnimate: boolean;
+  onAnimationComplete: any;
 }) => {
   const [displayText, setDisplayText] = useState("");
   const [currentCharIndex, setCurrentCharIndex] = useState(0);
@@ -44,7 +54,7 @@ const AnimatedSpecification = ({
 }: {
   shouldAnimate: boolean;
 }) => {
-  const [specification, setSpecification] = useState({
+  const [specification, setSpecification] = useState<Specification>({
     current: [
       { text: "Game reset functionality after the player loses", index: 0 },
       { text: "Display of score", index: 1 },
@@ -75,10 +85,12 @@ const AnimatedSpecification = ({
                 <AnimatedInput
                   key={index}
                   value={value.text}
-                  onChange={(event) => handleBlur(key, index, event)}
+                  // onChange={(event:Event) => handleBlur(key, index, event)}
                   onRemove={() => {
                     setSpecification((prevSpecification) => {
-                      const newValues = [...prevSpecification[key]];
+                      const newValues = [
+                        ...prevSpecification[key as keyof Specification],
+                      ];
                       newValues.splice(index, 1);
                       return {
                         ...prevSpecification,

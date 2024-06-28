@@ -33,6 +33,14 @@ const TrelloIcon = ({ width, height }: { width: string; height: string }) => (
   </svg>
 );
 
+interface ProgressIconProps {
+  color: string;
+}
+
+interface AnimationProps {
+  shouldAnimate: boolean;
+}
+
 const StepCard = ({
   icon,
   title,
@@ -41,12 +49,12 @@ const StepCard = ({
   isCentered,
   animation,
 }: {
-  icon: ReactElement;
+  icon?: ReactElement;
   title: string;
   description: string;
   isVisible: boolean;
   isCentered: boolean;
-  animation?: (isCentered: boolean) => ReactElement;
+  animation?: ({ shouldAnimate }: { shouldAnimate: boolean }) => ReactElement;
 }) => (
   // <div className="bg-gray-50 border border-white rounded-lg p-6 flex flex-col items-center text-center hover:border-slate-200">
   <div
@@ -65,7 +73,7 @@ const StepCard = ({
   >
     <div className="w-full justify-between flex">
       <h3 className="text-xl font-semibold text-gray-800  mb-2">{title}</h3>
-      {icon}
+      {icon && icon}
     </div>
     <p className="text-gray-600">{description}</p>
     {/* <MacBookWindow>
@@ -83,45 +91,45 @@ const timelineEvents = [
     description:
       "Pick a user story from your project management system or just formulate a new functionality",
     icon: <TrelloIcon width="20" height="20" />,
-    animation: (props) => (
+    animation: (props: AnimationProps) => (
       <MacBookWindow>
         {/* <FileSearchAnimation {...props} /> */}
         {/* <FileExplorer {...props} /> */}
         <KanbanBoard {...props} />
       </MacBookWindow>
     ),
-    progressIcon: (props) => <CircleDot {...props} />,
+    progressIcon: (props: ProgressIconProps) => <CircleDot {...props} />,
   },
   {
     title: "Specification",
     description:
       "LLM analyzes the issue and generates a detailed specification for the functionality based on the file context and the principles of your codebase and tech stack.",
-    animation: (props) => (
+    animation: (props: AnimationProps) => (
       <MacBookWindow>
         <AnimatedSpecification {...props} />
       </MacBookWindow>
     ),
-    progressIcon: (props) => <ListPlus {...props} />,
+    progressIcon: (props: ProgressIconProps) => <ListPlus {...props} />,
   },
   {
     title: "Coding",
     description:
       "The LLM writes the code for the functionality and shows you the diff. Here you can review the code and make changes.",
-    animation: (props) => (
+    animation: (props: AnimationProps) => (
       <MacBookWindow>
         {/* <div>Minacoplaceholder</div> */}
         <MonacoEditor {...props} />
       </MacBookWindow>
     ),
 
-    progressIcon: (props) => <Code {...props} />,
+    progressIcon: (props: ProgressIconProps) => <Code {...props} />,
   },
   {
     title: "Automated testing and test creation",
     description:
       "If the code implmentation passed the tests, LLM will continue to also write tests for the the new functionality",
-    progressIcon: (props) => <BadgeCheck {...props} />,
-    animation: (props) => (
+    progressIcon: (props: ProgressIconProps) => <BadgeCheck {...props} />,
+    animation: (props: AnimationProps) => (
       <MacBookWindow>
         <TestCompletionAnimation {...props} />
       </MacBookWindow>
@@ -131,7 +139,7 @@ const timelineEvents = [
     title: "Commiting and syncing your changes",
     description:
       "When the implementation is done, LLM will commit the changes and create a pull request for you. Contributing to the project is easier than ever",
-    progressIcon: (props) => <GitPullRequest {...props} />,
+    progressIcon: (props: ProgressIconProps) => <GitPullRequest {...props} />,
   },
 ];
 
@@ -143,6 +151,14 @@ const TimelineEvent = ({
   icon,
   animation,
   progressIcon,
+}: {
+  title: string;
+  description: string;
+  isVisible: boolean;
+  isCentered: boolean;
+  icon?: any;
+  animation?: any;
+  progressIcon: any;
 }) => (
   <div
     id="animated-timeline"
@@ -186,9 +202,14 @@ const TimelineEvent = ({
 // The rest of the AnimatedTimeline component remains unchanged.
 
 const AnimatedTimeline = () => {
-  const observerRefs = useRef([]);
-  const [visibleEvents, setVisibleEvents] = useState({});
-  const [centeredEventIndex, setCenteredEventIndex] = useState(null);
+  const observerRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  const [visibleEvents, setVisibleEvents] = useState<{
+    [key: number]: boolean;
+  }>({});
+  const [centeredEventIndex, setCenteredEventIndex] = useState<number | null>(
+    null
+  );
 
   useEffect(() => {
     const observers = observerRefs.current.map((ref, index) => {
@@ -240,7 +261,13 @@ const AnimatedTimeline = () => {
     <div className="container mx-auto px-24">
       <div className="relative">
         {timelineEvents.map((event, index) => (
-          <div ref={(el) => (observerRefs.current[index] = el)} key={index}>
+          // <div ref={(el) => (observerRefs.current[index] = el)} key={index}>
+          <div
+            ref={(el) => {
+              observerRefs.current[index] = el;
+            }}
+            key={index}
+          >
             <TimelineEvent
               {...event}
               isVisible={visibleEvents[index]}
