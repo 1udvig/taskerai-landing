@@ -19,6 +19,8 @@ import FileExplorer from "./AnimatedFileSearch";
 import TestCompletionAnimation from "./AnimatedTests";
 import KanbanBoard from "./AnimatedKanban";
 import Image from "next/image";
+import GitIssue from "./AnimatedIssue";
+import ScrollingGitIssues from "./AnimatedIssue";
 
 const TrelloIcon = ({ width, height }: { width: string; height: string }) => (
   <svg
@@ -35,7 +37,7 @@ const TrelloIcon = ({ width, height }: { width: string; height: string }) => (
 );
 
 const AnimationContainer = ({ children }: { children: ReactElement }) => {
-  return <div className=" p-2 bg-white rounded-sm ">{children}</div>;
+  return <div className=" p-2 bg-white rounded-md">{children}</div>;
 };
 
 interface ProgressIconProps {
@@ -64,6 +66,7 @@ const StepCard = ({
   // <div className="bg-gray-50 border border-white rounded-lg p-6 flex flex-col items-center text-center hover:border-slate-200">
   <div
     className={`
+      
       bg-gray-50
       border-2
       rounded-lg 
@@ -108,7 +111,8 @@ const timelineEvents = [
     ),
     animation: (props: AnimationProps) => (
       <AnimationContainer>
-        <KanbanBoard {...props} />
+        {/* <KanbanBoard {...props} /> */}
+        <ScrollingGitIssues />
       </AnimationContainer>
     ),
     progressIcon: (props: ProgressIconProps) => <CircleDot {...props} />,
@@ -212,7 +216,6 @@ const TimelineEvent = ({
 );
 
 // The rest of the AnimatedTimeline component remains unchanged.
-
 const AnimatedTimeline = () => {
   const observerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -222,6 +225,7 @@ const AnimatedTimeline = () => {
   const [centeredEventIndex, setCenteredEventIndex] = useState<number | null>(
     null
   );
+  const [hasScrolled, setHasScrolled] = useState(false);
 
   useEffect(() => {
     const observers = observerRefs.current.map((ref, index) => {
@@ -231,7 +235,7 @@ const AnimatedTimeline = () => {
             setVisibleEvents((prev) => ({ ...prev, [index]: true }));
           }
         },
-        { threshold: 0.9 }
+        { threshold: 0.8 }
       );
 
       if (ref) {
@@ -242,6 +246,7 @@ const AnimatedTimeline = () => {
     });
 
     const handleScroll = () => {
+      console.log("handleScroll triggerd");
       const centerY = window.innerHeight / 2;
       let closestIndex = 0;
       let closestDistance = Infinity;
@@ -257,23 +262,28 @@ const AnimatedTimeline = () => {
         }
       });
 
-      setCenteredEventIndex(closestIndex);
+      if (!hasScrolled) {
+        setHasScrolled(true);
+      }
+
+      if (hasScrolled) {
+        setCenteredEventIndex(closestIndex);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Initial call to set the centered event
+    // handleScroll(); // Initial call to set the centered event
 
     return () => {
       observers.forEach((observer) => observer.disconnect());
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [hasScrolled]);
 
   return (
     <div className="container mx-auto px-24">
       <div className="relative">
         {timelineEvents.map((event, index) => (
-          // <div ref={(el) => (observerRefs.current[index] = el)} key={index}>
           <div
             ref={(el) => {
               observerRefs.current[index] = el;

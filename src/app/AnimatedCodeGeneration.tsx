@@ -164,12 +164,12 @@ function MonacoEditor({ shouldAnimate }: { shouldAnimate: boolean }) {
 
   const diffEditorRef = useRef(null);
 
-  function handleEditorDidMount(editor, monaco) {
-    diffEditorRef.current = editor;
-    console.log(
-      diffEditorRef.current.getModifiedEditor().getValue().split("\n")
-    );
-  }
+  //   function handleEditorDidMount(editor, monaco) {
+  //     diffEditorRef.current = editor;
+  //     console.log(
+  //       diffEditorRef.current.getModifiedEditor().getValue().split("\n")
+  //     );
+  //   }
 
   //   const diffLines = [
   //     { line: 3, text: "    game_paused = False\n" },
@@ -214,7 +214,7 @@ function MonacoEditor({ shouldAnimate }: { shouldAnimate: boolean }) {
         }}
         original={originalcode}
         modified={modifiedCode}
-        onMount={handleEditorDidMount}
+        // onMount={handleEditorDidMount}
       />
     </div>
   );

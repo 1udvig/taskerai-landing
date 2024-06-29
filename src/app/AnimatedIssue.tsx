@@ -1,60 +1,187 @@
-import React, { useState, useEffect } from "react";
-import { Folder, File, Search } from "lucide-react";
+// @ts-nocheck
+import React, { useState, useEffect, useRef } from "react";
+import { AlertCircle, MessageCircle, User } from "lucide-react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-const FileSearchAnimation = () => {
-  const [searchPosition, setSearchPosition] = useState(0);
-  const [currentFileIndex, setCurrentFileIndex] = useState(0);
+const GitIssue = ({
+  title,
+  number,
+  status,
+  author,
+  comments,
+  labels,
+  isSelected,
+}) => {
+  return (
+    <Card
+      className={`scale-75 w-full max-w-md transition-all duration-300 hover:bg-green-200 ${
+        isSelected ? "border-green-400 drop-shadow-lg" : ""
+      }`}
+    >
+      <CardHeader>
+        <div className="flex items-center space-x-2">
+          <AlertCircle
+            className={`h-5 w-5 ${
+              isSelected ? "text-blue-500" : "text-yellow-500"
+            }`}
+          />
+          <CardTitle className="text-sm font-semibold">{title}</CardTitle>
+        </div>
+        <CardDescription>
+          #{number} opened by {author}
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="flex flex-wrap gap-2">
+          {labels.map((label, index) => (
+            <Badge key={index} variant={isSelected ? "default" : "secondary"}>
+              {label}
+            </Badge>
+          ))}
+        </div>
+      </CardContent>
+      <CardFooter className="flex justify-between items-center">
+        <div className="flex items-center space-x-2">
+          <MessageCircle className="h-4 w-4" />
+          <span>{comments} comments</span>
+        </div>
+        <div className="flex items-center space-x-2">
+          <Avatar className="h-6 w-6">
+            <AvatarImage
+              src={`https://github.com/${author}.png`}
+              alt={author}
+            />
+            <AvatarFallback>
+              <User className="h-4 w-4" />
+            </AvatarFallback>
+          </Avatar>
+          <Badge variant={status === "open" ? "destructive" : "success"}>
+            {status}
+          </Badge>
+        </div>
+      </CardFooter>
+    </Card>
+  );
+};
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setSearchPosition((prev) => (prev + 1) % 3);
-      if (searchPosition === 2) {
-        setCurrentFileIndex((prev) => (prev + 1) % 5);
-      }
-    }, 500);
+const ScrollingGitIssues = () => {
+  const [selectedIssue, setSelectedIssue] = useState(null);
+  const scrollContainerRef = useRef(null);
+  const [isUserScrolling, setIsUserScrolling] = useState(false);
 
-    return () => clearInterval(interval);
-  }, [searchPosition]);
-
-  const files = [
-    { name: "Document.pdf", color: "text-red-500" },
-    { name: "Image.jpg", color: "text-blue-500" },
-    { name: "Spreadsheet.xlsx", color: "text-green-500" },
-    { name: "Presentation.pptx", color: "text-orange-500" },
-    { name: "Notes.txt", color: "text-purple-500" },
+  const issues = [
+    {
+      title: "Fix login bug",
+      number: 42,
+      status: "open",
+      author: "johndoe",
+      comments: 5,
+      labels: ["bug", "high priority"],
+    },
+    {
+      title: "Add dark mode",
+      number: 43,
+      status: "open",
+      author: "janedoe",
+      comments: 3,
+      labels: ["enhancement"],
+    },
+    {
+      title: "Update documentation",
+      number: 44,
+      status: "closed",
+      author: "bobsmith",
+      comments: 1,
+      labels: ["documentation"],
+    },
+    {
+      title: "Optimize database queries",
+      number: 45,
+      status: "open",
+      author: "alicejones",
+      comments: 7,
+      labels: ["performance", "database"],
+    },
+    {
+      title: "Implement user roles",
+      number: 46,
+      status: "open",
+      author: "charliegreen",
+      comments: 4,
+      labels: ["feature", "security"],
+    },
   ];
 
+  useEffect(() => {
+    let scrollInterval;
+    const scrollContainer = scrollContainerRef.current;
+
+    const startScrolling = () => {
+      scrollInterval = setInterval(() => {
+        if (!isUserScrolling) {
+          scrollContainer.scrollTop += 1;
+          if (
+            scrollContainer.scrollTop + scrollContainer.clientHeight >=
+            scrollContainer.scrollHeight
+          ) {
+            clearInterval(scrollInterval);
+          }
+        }
+      }, 10);
+    };
+
+    const handleUserScroll = () => {
+      setIsUserScrolling(true);
+      clearInterval(scrollInterval);
+    };
+
+    const handleScrollEnd = () => {
+      setIsUserScrolling(false);
+      startScrolling();
+    };
+
+    scrollContainer.addEventListener("scroll", handleUserScroll);
+    scrollContainer.addEventListener("scroll", handleScrollEnd);
+
+    startScrolling();
+
+    return () => {
+      clearInterval(scrollInterval);
+      scrollContainer.removeEventListener("scroll", handleUserScroll);
+      scrollContainer.removeEventListener("scroll", handleScrollEnd);
+    };
+  }, [isUserScrolling]);
+
   return (
-    <div className="flex flex-col items-center justify-center h-64 bg-gray-100 rounded-lg p-4">
-      <div className="relative mb-8">
-        <Folder className="w-16 h-16 text-yellow-500" />
-        <div
-          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
-          style={{
-            transform: `translate(-50%, -50%) translateX(${
-              searchPosition * 20
-            }px)`,
-            transition: "transform 0.3s ease-in-out",
-          }}
-        >
-          <Search className="w-8 h-8 text-gray-600" />
-        </div>
-      </div>
-      <div className="flex space-x-4">
-        {files.map((file, index) => (
-          <div
-            key={file.name}
-            className={`flex flex-col items-center ${
-              index === currentFileIndex ? "scale-110" : "scale-100"
-            } transition-transform duration-300`}
-          >
-            <File className={`w-8 h-8 ${file.color}`} />
-            <span className="text-xs mt-1">{file.name}</span>
-          </div>
+    <div className="w-full h-48 overflow-hidden">
+      <div
+        ref={scrollContainerRef}
+        className="h-full overflow-y-auto flex flex-col items-center "
+      >
+        {issues.map((issue, index) => (
+          <GitIssue
+            key={index}
+            title={issue.title}
+            number={issue.number}
+            status={issue.status}
+            author={issue.author}
+            comments={issue.comments}
+            labels={issue.labels}
+            isSelected={selectedIssue === index}
+          />
         ))}
       </div>
     </div>
   );
 };
 
-export default FileSearchAnimation;
+export default ScrollingGitIssues;

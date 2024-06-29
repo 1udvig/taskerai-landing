@@ -2,8 +2,12 @@
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+
+type FormValues = {
+  email: string;
+};
 
 const EmailSubscriptionForm = () => {
   const {
@@ -11,19 +15,18 @@ const EmailSubscriptionForm = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm();
+  } = useForm<FormValues>();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  const onSubmit = async (data) => {
+  const onSubmit: SubmitHandler<FormValues> = async (formData) => {
     setIsSubmitting(true);
     setSubmitSuccess(false);
     // Simulating an API call
     await new Promise((resolve) => setTimeout(resolve, 1000));
-    console.log(data);
+    console.log(formData.email); // Access the email field from formData
     setIsSubmitting(false);
     setSubmitSuccess(true);
-    // Here you would typically send the data to your backend
     reset(); // This clears the form fields
     // Clear success message after 3 seconds
     setTimeout(() => setSubmitSuccess(false), 3000);
@@ -31,7 +34,9 @@ const EmailSubscriptionForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md mx-auto">
-      <div>Subscribe to be notified when we launch</div>
+      <div className="text-lg font-light text-foreground mb-6">
+        Subscribe to be notified when we launch
+      </div>
       <div className="flex flex-col sm:flex-row gap-4 p-4">
         <Input
           placeholder="Email"

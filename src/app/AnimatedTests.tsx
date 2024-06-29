@@ -7,6 +7,13 @@ const TestCompletionAnimation = ({
   shouldAnimate: boolean;
 }) => {
   const totalTests = 5;
+  const testNames = [
+    "geometry",
+    "game loop cycle",
+    "highscore tracking",
+    "modules-loading",
+    "misc",
+  ]; // Example test names
   const initialTestStates = Array(totalTests).fill("gray"); // All tests start as gray
   const [testStates, setTestStates] = useState(initialTestStates);
 
@@ -15,14 +22,11 @@ const TestCompletionAnimation = ({
     const interval = setInterval(() => {
       setTestStates((prevStates) => {
         const nextStates = [...prevStates];
-        const firstGrayIndex = nextStates.indexOf("gray");
+        const firstGrayIndex = nextStates.findIndex(
+          (state) => state === "gray"
+        );
         if (firstGrayIndex !== -1) {
-          nextStates[firstGrayIndex] = "blue";
-        } else {
-          const firstBlueIndex = nextStates.indexOf("blue");
-          if (firstBlueIndex !== -1) {
-            nextStates[firstBlueIndex] = Math.random() < 0.8 ? "green" : "red";
-          }
+          nextStates[firstGrayIndex] = Math.random() < 0.8 ? "green" : "red";
         }
         return nextStates;
       });
@@ -37,15 +41,14 @@ const TestCompletionAnimation = ({
         {testStates.map((state, index) => (
           <div
             key={index}
-            className="transition-all duration-300 ease-in-out p-4 flex"
+            className="transition-all duration-300 ease-in-out p-4 flex items-center"
           >
-            {state === "gray" && <Circle className="text-gray-300 w-8 h-8" />}
-            {state === "blue" && <Circle className="text-blue-500 w-8 h-8" />}
+            {state === "gray" && <Circle className="text-gray-300 w-6 h-6" />}
             {state === "green" && (
-              <CheckCircle className="text-green-500 w-8 h-8" />
+              <CheckCircle className="text-green-500 w-6 h-6" />
             )}
-            {state === "red" && <CircleX className="text-red-500 w-8 h-8" />}
-            <div className="mx-4">Test {index + 1}</div>
+            {state === "red" && <CircleX className="text-red-500 w-6 h-6" />}
+            <div className="mx-4 text-sm font-light">{testNames[index]}</div>
           </div>
         ))}
       </div>

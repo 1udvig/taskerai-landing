@@ -1,8 +1,8 @@
-import React from "react";
+import React, { ReactNode } from "react";
 
-const MacBookWindow = ({ children }) => {
+const MacBookWindow = ({ children }: { children: ReactNode }) => {
   return (
-    <div className=" max-w-4xl mx-auto bg-gray-100 rounded-lg  overflow-visible drop-shadow-2xl">
+    <div className=" max-w-24 sm:max-w-4xl mx-auto bg-gray-50 rounded-lg overflow-visible drop-shadow-2xl border">
       {/* Window header */}
       <div className="bg-gray-200 px-4 py-2 flex items-center border-x border-t border-1 border-white rounded-t">
         <div className="flex space-x-2">
@@ -16,7 +16,7 @@ const MacBookWindow = ({ children }) => {
       </div>
 
       {/* Window content */}
-      <div className="p-4 roun bg-white">{children}</div>
+      <div className="p-4  bg-white">{children}</div>
     </div>
   );
 };

@@ -44,9 +44,9 @@ const LandingPage = () => {
         <ScrollIndicator />
       </header>
 
-      {/* <MacBookWindow>
+      <MacBookWindow>
         <AnimatedTimeline />
-      </MacBookWindow> */}
+      </MacBookWindow>
       <div className="mt-24">
         <EmailSubscriptionForm />
       </div>
