@@ -74,9 +74,8 @@ const StepCard = ({
       ml-4
       border-white
       hover:border-slate-200
-      transition-all duration-500 ease-out  ${
-        isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
-      }
+      transition-all duration-500 ease-out  
+      
       ${
         isCentered
           ? "translate-x-6 bg-slate-300 drop-shadow-xl"
@@ -201,16 +200,14 @@ const TimelineEvent = ({
         </div>
       </div>
 
-      {isVisible && (
-        <StepCard
-          title={title}
-          description={description}
-          icon={icon}
-          animation={animation}
-          isVisible={isVisible}
-          isCentered={isCentered}
-        />
-      )}
+      <StepCard
+        title={title}
+        description={description}
+        icon={icon}
+        animation={animation}
+        isVisible={isVisible}
+        isCentered={isCentered}
+      />
     </div>
   </div>
 );
