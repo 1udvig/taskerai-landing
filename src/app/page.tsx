@@ -8,12 +8,13 @@ import EmailSubscriptionForm from "./EmailForm";
 import ScrollIndicator from "./ScrollEncourage";
 
 import MacBookWindow from "./MacWindow";
+import DownloadButton from "@/components/DownloadButton";
 
 const LandingPage = () => {
   return (
     // <div className="bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
 
-    <div className="min-h-screen w-screen  flex flex-col items-center  p-8">
+    <div className="min-h-screen w-screen  flex flex-col items-center p-3 sm:p-8">
       {/* // <div className="min-h-screen w-screen flex flex-col items-center justify-center p-8"> */}
       <div className=" flex rounded-3xl border-2 border-slate-500 bg-slate-50 p-2 justify-center items-center gap-2 mt-16">
         <h1 className="ml-2 w-auto text-xs text-foreground px-2">
@@ -22,7 +23,7 @@ const LandingPage = () => {
         <Zap className="text-yellow-300 mr-2" />
         {/* <h1 className=" text-xs  text-foreground px-2"></h1> */}
       </div>
-      <header className=" py-12 flex flex-col md:h-4/5 ">
+      <header className="px-2 pt-6 pb-2 sm:pb-8 items-center flex flex-col  ">
         {/* <h1 className="text-4xl font-bold text-gray-800 mb-4"> */}
 
         <h1 className="text-foreground  text-center text-4xl font-medium tracking-tighter  lg:leading-[1.1] text-balance mb-4">
@@ -33,14 +34,16 @@ const LandingPage = () => {
         </p> */}
         <span
           className="max-w-[750px] text-center text-lg font-light text-foreground"
-          data-br=":Rrfau6la:"
-          data-brr="1"
+          // data-br=":Rrfau6la:"
+          // data-brr="1"
           // style="display: inline-block; vertical-align: top; text-decoration: inherit; max-width: 543px;"
         >
           Harness the power of emerging LLM technology to aid in your software
           development process. Our platform provides a workspace for carrying
           out software development tasks with ease.
         </span>
+        <DownloadButton />
+
         <ScrollIndicator />
       </header>
 

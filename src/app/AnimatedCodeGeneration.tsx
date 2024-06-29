@@ -164,23 +164,6 @@ function MonacoEditor({ shouldAnimate }: { shouldAnimate: boolean }) {
 
   const diffEditorRef = useRef(null);
 
-  //   function handleEditorDidMount(editor, monaco) {
-  //     diffEditorRef.current = editor;
-  //     console.log(
-  //       diffEditorRef.current.getModifiedEditor().getValue().split("\n")
-  //     );
-  //   }
-
-  //   const diffLines = [
-  //     { line: 3, text: "    game_paused = False\n" },
-  //     { line: 29, text: "                if event.key == pygame.K_p:\n" },
-  //     { line: 30, text: "                    game_paused = not game_paused\n" },
-  //     {
-  //       line: 42,
-  //       text: "        if game_paused:\n            message(\"Game Paused. Press 'P' to resume.\", yellow)\n            pygame.display.update()\n            continue\n",
-  //     },
-  //   ];
-
   useEffect(() => {
     if (!shouldAnimate) {
       return;

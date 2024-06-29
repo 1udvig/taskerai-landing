@@ -23,7 +23,7 @@ const GitIssue = ({
 }) => {
   return (
     <Card
-      className={`scale-75 w-full max-w-md transition-all duration-300 hover:bg-green-200 ${
+      className={`mt-2 scale-75 sm:scale-100 transition-all duration-300 hover:bg-green-200 ${
         isSelected ? "border-green-400 drop-shadow-lg" : ""
       }`}
     >
@@ -133,7 +133,7 @@ const ScrollingGitIssues = () => {
             scrollContainer.scrollTop + scrollContainer.clientHeight >=
             scrollContainer.scrollHeight
           ) {
-            clearInterval(scrollInterval);
+            scrollContainer.scrollTop = 0;
           }
         }
       }, 10);

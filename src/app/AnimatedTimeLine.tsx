@@ -9,6 +9,7 @@ import {
   BadgeCheck,
   GitPullRequest,
   ArrowDown,
+  RefreshCcw,
 } from "lucide-react";
 import AnimatedSpecification from "./AnimatedSpecification";
 import MacBookWindow from "./MacWindow";
@@ -21,6 +22,7 @@ import KanbanBoard from "./AnimatedKanban";
 import Image from "next/image";
 import GitIssue from "./AnimatedIssue";
 import ScrollingGitIssues from "./AnimatedIssue";
+import AnimatingGit from "./AnimatedGit";
 
 const TrelloIcon = ({ width, height }: { width: string; height: string }) => (
   <svg
@@ -70,28 +72,31 @@ const StepCard = ({
       bg-gray-50
       border-2
       rounded-lg 
-      p-6
-      ml-4
+      p-3 sm:p-6
+      ml-0 sm:ml-4
+      my-2 sm:my-0
       border-white
       hover:border-slate-200
       transition-all duration-500 ease-out  ${
-        isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
+        isVisible ? "opacity-100 translate-x-0" : "opacity-0 sm:-translate-x-12"
       }
       ${
         isCentered
-          ? "translate-x-6 bg-slate-300 drop-shadow-xl"
+          ? " sm:translate-x-6 bg-green-200 sm:bg-slate-300 drop-shadow-xl"
           : "bg-slate-100"
       }`}
   >
     <div className="w-full justify-between flex">
-      <h3 className="text-xl font-semibold text-gray-800  mb-2">{title}</h3>
+      <h3 className="text-md sm:text-xl font-semibold text-gray-800  mb-2">
+        {title}
+      </h3>
       {icon && icon}
     </div>
-    <p className="text-gray-600">{description}</p>
+    <p className="text-gray-600 text-sm sm:text-md">{description}</p>
     {/* <MacBookWindow>
       <AnimatedSpecification shouldAnimate={isCentered} />
     </MacBookWindow> */}
-    <div className="pt-10">
+    <div className="pt-6">
       {animation && animation({ shouldAnimate: isCentered })}
     </div>
   </div>
@@ -156,6 +161,11 @@ const timelineEvents = [
     description:
       "When the implementation is done, LLM will commit the changes and create a pull request for you. Contributing to the project is easier than ever",
     progressIcon: (props: ProgressIconProps) => <GitPullRequest {...props} />,
+    animation: (props: AnimationProps) => (
+      <AnimationContainer>
+        <AnimatingGit />
+      </AnimationContainer>
+    ),
   },
 ];
 
@@ -183,16 +193,16 @@ const TimelineEvent = ({
     
     `}
   >
-    <div className="flex flex-col items-center border-l  p-4">
+    <div className="flex flex-col items-center sm:border-l  p-1 sm:p-4">
       {/* <div className="bg-black w-1 flex-1"> </div> */}
       <div
         className={`
-     rounded-full  absolute left-0 -translate-x-1/2 overflow-visible transition-transform duration-500 
-    ${isCentered ? " scale-110  bg-green-400" : "scale-100"}
-  `}
+               rounded-full  absolute sm:left-0 sm:-translate-x-1/2 overflow-visible transition-transform duration-500 
+              ${isCentered ? " sm:scale-110  bg-green-400" : "sm:scale-100"}
+              `}
       >
         {/* <CircleDot color={isCentered ? "white" : "gray"} /> */}
-        <div className="p-2">
+        <div className="hidden sm:block p-1 sm:p-2  sm:relative">
           {progressIcon({ color: isCentered ? "white" : "gray" })}
           <div className=" absolute mt-12 animate-bouncepp ">
             {/* <div className=" mt-12 absolute transform  cursor-pointer animate-bounce"> */}
@@ -281,7 +291,7 @@ const AnimatedTimeline = () => {
   }, [hasScrolled]);
 
   return (
-    <div className="container mx-auto px-24">
+    <div className="container mx-0 sm:mx-auto px-1 sm:px-24">
       <div className="relative">
         {timelineEvents.map((event, index) => (
           <div

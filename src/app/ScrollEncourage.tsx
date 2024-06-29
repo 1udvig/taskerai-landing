@@ -27,7 +27,7 @@ const ScrollIndicator = () => {
 
   return (
     <div
-      className="  cursor-pointer mt-24 translate-y-2  animate-bounce2"
+      className="  cursor-pointer mt-16 translate-y-2  animate-bounce2"
       // onClick={scrollToTimeline}
     >
       {/* <div className="bg-white p-3 rounded-full shadow-lg flex">
