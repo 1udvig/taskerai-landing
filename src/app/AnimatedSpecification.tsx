@@ -37,7 +37,7 @@ const AnimatedInput = ({
   return (
     <li className="flex items-center">
       <input
-        className=" text-xs font-light outline-none w-1/2 mr-2 hover:bg-gray-300 p-2 bg-gray-200 my-2 rounded-md"
+        className=" text-xs font-light outline-none w-full mr-2 hover:bg-gray-300 p-2 bg-gray-200 my-2 rounded-md"
         value={displayText}
         onChange={onChange}
         readOnly={currentCharIndex < value.length}
@@ -73,7 +73,7 @@ const AnimatedSpecification = ({
   };
 
   return (
-    <>
+    <div className="p-2">
       {Object.entries(specification).map(([key, values]) => (
         <div key={key} className="mb-2">
           <h2 className="text-sm  outline-none pb-2">
@@ -109,7 +109,7 @@ const AnimatedSpecification = ({
             <div className="py-2">
               <Button
                 variant="secondary"
-                className="text-sm px-4 py-1 font-medium"
+                className=" text-xs px-2 py-1 font-medium"
                 onClick={() => {
                   setSpecification((prevSpecification) => {
                     return {
@@ -125,7 +125,7 @@ const AnimatedSpecification = ({
           )}
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

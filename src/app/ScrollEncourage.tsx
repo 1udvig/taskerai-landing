@@ -38,7 +38,7 @@ const ScrollIndicator = () => {
         <p className="text-lg font-light text-foreground mb-2">
           Experience the workflow
         </p>
-        <ChevronDown size={32} className="mx-auto " />
+        <ChevronDown size={32} className="mx-auto text-gray-950" />
       </div>
     </div>
   );

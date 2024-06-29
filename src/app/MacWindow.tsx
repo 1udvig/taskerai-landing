@@ -2,7 +2,7 @@ import React from "react";
 
 const MacBookWindow = ({ children }) => {
   return (
-    <div className=" max-w-2xl mx-auto bg-gray-100 rounded-lg shadow-lg overflow-visible">
+    <div className=" max-w-4xl mx-auto bg-gray-100 rounded-lg  overflow-visible drop-shadow-2xl">
       {/* Window header */}
       <div className="bg-gray-200 px-4 py-2 flex items-center border-x border-t border-1 border-white rounded-t">
         <div className="flex space-x-2">

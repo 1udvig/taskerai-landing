@@ -1,5 +1,6 @@
 import React, { use, useEffect, useRef, useState } from "react";
 import Editor, { DiffEditor } from "@monaco-editor/react";
+import Image from "next/image";
 
 const originalcode = `
 def gameLoop():
@@ -194,6 +195,15 @@ function MonacoEditor({ shouldAnimate }: { shouldAnimate: boolean }) {
 
   return (
     <div>
+      <div className="inline-flex p-1 border border-b-0 ">
+        <Image
+          src={"/pythonlogo.svg"}
+          alt="pythonlogo"
+          width={20}
+          height={20}
+        />
+        <div className="text-xs">snakegame.py</div>
+      </div>
       <DiffEditor
         height="50vh"
         width="100%"

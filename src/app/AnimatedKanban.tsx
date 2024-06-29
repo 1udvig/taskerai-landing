@@ -2,11 +2,9 @@ import React, { useState, useEffect } from "react";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
 const userStories = [
-  { id: 1, title: "User Registration", status: "To Do" },
-  { id: 2, title: "Login Functionality", status: "In Progress" },
-  { id: 3, title: "Dashboard Design", status: "In Progress" },
-  { id: 4, title: "API Integration", status: "To Do" },
-  { id: 5, title: "User Profile Page", status: "Done" },
+  { id: 1, title: "Pause functionality", status: "To Do" },
+  { id: 2, title: "Highscore Board", status: "To Do" },
+  { id: 3, title: "Cross-platform availibility", status: "In Progress" },
 ];
 
 const KanbanBoard = ({ shouldAnimate }: { shouldAnimate: boolean }) => {
@@ -48,11 +46,11 @@ const KanbanBoard = ({ shouldAnimate }: { shouldAnimate: boolean }) => {
       <div className="flex justify-between w-full max-w-3xl">
         {["To Do", "In Progress", "Done"].map((column) => (
           <div key={column} className="bg-gray-200 p-4 rounded-lg w-1/3 mx-2">
-            <h2 className="font-semibold mb-2">{column}</h2>
+            <h2 className="font-medium mb-2">{column}</h2>
             {userStories.map((story, index) => (
               <div
                 key={story.id}
-                className={` p-2 rounded mb-2 transition-all duration-300 border-2
+                className={` p-2 rounded mb-2 transition-all duration-300 border-2 text-sm
                      ${story.status === column ? "opacity-100 " : "opacity-0 "} 
                 ${
                   index === currentStory

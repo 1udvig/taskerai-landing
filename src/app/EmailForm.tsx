@@ -31,6 +31,7 @@ const EmailSubscriptionForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="w-full max-w-md mx-auto">
+      <div>Subscribe to be notified when we launch</div>
       <div className="flex flex-col sm:flex-row gap-4 p-4">
         <Input
           placeholder="Email"

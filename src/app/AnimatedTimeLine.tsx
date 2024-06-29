@@ -18,6 +18,7 @@ import MonacoEditor from "./AnimatedCodeGeneration";
 import FileExplorer from "./AnimatedFileSearch";
 import TestCompletionAnimation from "./AnimatedTests";
 import KanbanBoard from "./AnimatedKanban";
+import Image from "next/image";
 
 const TrelloIcon = ({ width, height }: { width: string; height: string }) => (
   <svg
@@ -32,6 +33,10 @@ const TrelloIcon = ({ width, height }: { width: string; height: string }) => (
     <rect height="296" rx="23" width="132" x="97" y="95" />
   </svg>
 );
+
+const AnimationContainer = ({ children }: { children: ReactElement }) => {
+  return <div className=" p-2 bg-white rounded-sm ">{children}</div>;
+};
 
 interface ProgressIconProps {
   color: string;
@@ -69,7 +74,11 @@ const StepCard = ({
       transition-all duration-500 ease-out  ${
         isVisible ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-12"
       }
-      ${isCentered ? "ml-8 bg-slate-300 drop-shadow-xl" : "bg-slate-100"}`}
+      ${
+        isCentered
+          ? "translate-x-6 bg-slate-300 drop-shadow-xl"
+          : "bg-slate-100"
+      }`}
   >
     <div className="w-full justify-between flex">
       <h3 className="text-xl font-semibold text-gray-800  mb-2">{title}</h3>
@@ -79,7 +88,7 @@ const StepCard = ({
     {/* <MacBookWindow>
       <AnimatedSpecification shouldAnimate={isCentered} />
     </MacBookWindow> */}
-    <div className="py-10">
+    <div className="pt-10">
       {animation && animation({ shouldAnimate: isCentered })}
     </div>
   </div>
@@ -90,13 +99,17 @@ const timelineEvents = [
     title: "Issue",
     description:
       "Pick a user story from your project management system or just formulate a new functionality",
-    icon: <TrelloIcon width="20" height="20" />,
+    icon: (
+      <div className="flex items-center gap-2">
+        {" "}
+        <TrelloIcon width="20" height="20" />
+        <Image src={"/jira.svg"} width={20} height={20} alt="jira.svg"></Image>
+      </div>
+    ),
     animation: (props: AnimationProps) => (
-      <MacBookWindow>
-        {/* <FileSearchAnimation {...props} /> */}
-        {/* <FileExplorer {...props} /> */}
+      <AnimationContainer>
         <KanbanBoard {...props} />
-      </MacBookWindow>
+      </AnimationContainer>
     ),
     progressIcon: (props: ProgressIconProps) => <CircleDot {...props} />,
   },
@@ -105,9 +118,9 @@ const timelineEvents = [
     description:
       "LLM analyzes the issue and generates a detailed specification for the functionality based on the file context and the principles of your codebase and tech stack.",
     animation: (props: AnimationProps) => (
-      <MacBookWindow>
+      <AnimationContainer>
         <AnimatedSpecification {...props} />
-      </MacBookWindow>
+      </AnimationContainer>
     ),
     progressIcon: (props: ProgressIconProps) => <ListPlus {...props} />,
   },
@@ -116,10 +129,9 @@ const timelineEvents = [
     description:
       "The LLM writes the code for the functionality and shows you the diff. Here you can review the code and make changes.",
     animation: (props: AnimationProps) => (
-      <MacBookWindow>
-        {/* <div>Minacoplaceholder</div> */}
+      <AnimationContainer>
         <MonacoEditor {...props} />
-      </MacBookWindow>
+      </AnimationContainer>
     ),
 
     progressIcon: (props: ProgressIconProps) => <Code {...props} />,
@@ -130,9 +142,9 @@ const timelineEvents = [
       "If the code implmentation passed the tests, LLM will continue to also write tests for the the new functionality",
     progressIcon: (props: ProgressIconProps) => <BadgeCheck {...props} />,
     animation: (props: AnimationProps) => (
-      <MacBookWindow>
+      <AnimationContainer>
         <TestCompletionAnimation {...props} />
-      </MacBookWindow>
+      </AnimationContainer>
     ),
   },
   {
@@ -219,7 +231,7 @@ const AnimatedTimeline = () => {
             setVisibleEvents((prev) => ({ ...prev, [index]: true }));
           }
         },
-        { threshold: 0.5 }
+        { threshold: 0.9 }
       );
 
       if (ref) {

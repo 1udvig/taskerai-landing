@@ -7,28 +7,26 @@ import { Input } from "@/components/ui/input";
 import EmailSubscriptionForm from "./EmailForm";
 import ScrollIndicator from "./ScrollEncourage";
 
+import MacBookWindow from "./MacWindow";
+
 const LandingPage = () => {
   return (
     // <div className="bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
 
     <div className="min-h-screen w-screen  flex flex-col items-center  p-8">
       {/* // <div className="min-h-screen w-screen flex flex-col items-center justify-center p-8"> */}
-      <div className=" flex rounded-3xl border-2 border-slate-500 bg-slate-50 p-2 justify-center items-center gap-2 mt-6">
+      <div className=" flex rounded-3xl border-2 border-slate-500 bg-slate-50 p-2 justify-center items-center gap-2 mt-16">
         <h1 className="ml-2 w-auto text-xs text-foreground px-2">
           Version 1.0 Coming soon
         </h1>
         <Zap className="text-yellow-300 mr-2" />
         {/* <h1 className=" text-xs  text-foreground px-2"></h1> */}
       </div>
-      <header className=" py-12 flex flex-col ">
+      <header className=" py-12 flex flex-col md:h-4/5 ">
         {/* <h1 className="text-4xl font-bold text-gray-800 mb-4"> */}
 
-        <h1 className="text-foreground  text-center text-6xl font-medium tracking-tighter md:text-7xl lg:leading-[1.1] text-balance mb-4">
-          Tasker
-          {/* <span className="bg-gray-700 text-yellow-300 py-1 px-2 ml-1 rounded-md backdrop-blur-xl"> */}
-          <span className="bg-clip-text text-transparent bg-gradient-to-r from-yellow-300 to-yellow-500 scale-50">
-            AI
-          </span>
+        <h1 className="text-foreground  text-center text-4xl font-medium tracking-tighter  lg:leading-[1.1] text-balance mb-4">
+          Re-imagining Software Development
         </h1>
         {/* <p className="text-xl text-gray-600">
           Revolutionize Your Software Development with LLM technology.
@@ -39,14 +37,20 @@ const LandingPage = () => {
           data-brr="1"
           // style="display: inline-block; vertical-align: top; text-decoration: inherit; max-width: 543px;"
         >
-          Using LLM techoology to revolutionize your software development.
+          Harness the power of emerging LLM technology to aid in your software
+          development process. Our platform provides a workspace for carrying
+          out software development tasks with ease.
         </span>
         <ScrollIndicator />
       </header>
 
-      <AnimatedTimeline />
-      <EmailSubscriptionForm />
-      <footer className="mt-12 text-center text-gray-600">
+      {/* <MacBookWindow>
+        <AnimatedTimeline />
+      </MacBookWindow> */}
+      <div className="mt-24">
+        <EmailSubscriptionForm />
+      </div>
+      <footer className=" mt-24 text-center text-gray-600">
         <p>&copy; 2024 Clienture AB. All rights reserved.</p>
       </footer>
     </div>
