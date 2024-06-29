@@ -20,9 +20,9 @@ const NavItem = ({ text, page }: { text: string; page: pageUrl }) => {
 const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0  bg-slate-100 bg-opacity-30 backdrop-blur-md z-10 p-2 sm:p-3 border-b-gray-200 border">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          <div className="flex items-center">
+          <div className="flex items-center ">
             <div className="flex-shrink-0">
               <h1 className="text-foreground  text-center  font-medium tracking-tighter text-sm md:text-2xl lg:leading-[1.1] text-balance">
                 Tasker
