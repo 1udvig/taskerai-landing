@@ -38,6 +38,7 @@ const Navbar = () => {
               <NavItem text="Home" page="/" />
               <NavItem text="Features" page="/features" />
               <NavItem text="Pricing" page="/pricing" />
+              <NavItem text="ROI" page="/roi" />
               {/* <NavItem text="Contact" /> */}
             </div>
           </div>
